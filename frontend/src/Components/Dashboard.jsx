@@ -2,14 +2,15 @@ import React from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import axios from "axios";
+import baseUrl from "../baseUrl";
 
 const Dashboard = () => {
   const anvigate = useNavigate()
   axios.defaults.withCredentials = true
   const handleLogout = () => {
-    axios.get('http://localhost:3000/auth/logout')
+    axios.get(`${baseUrl}/auth/logout`)
     .then(result => {
-      if(result.data.Status) { 
+      if(result.data.Status) {
         localStorage.removeItem("valid")
         anvigate('/')
       }

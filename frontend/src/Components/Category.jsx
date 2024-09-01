@@ -1,13 +1,14 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import baseUrl from '../baseUrl'
 
 const Category = () => {
 
     const [category, setCategory] = useState([])
 
     useEffect(()=> {
-        axios.get('http://localhost:3000/auth/category')
+        axios.get(`${baseUrl}/auth/category`)
         .then(result => {
             if(result.data.Status) {
                 setCategory(result.data.Result);

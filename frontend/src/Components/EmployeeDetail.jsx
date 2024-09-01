@@ -1,21 +1,21 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-
+import baseUrl from '../baseUrl'
 
 const EmployeeDetail = () => {
     const [employee, setEmployee] = useState([])
     const {id} = useParams()
     const navigate = useNavigate()
     useEffect(() => {
-        axios.get('http://localhost:3000/employee/detail/'+id)
+        axios.get(`${baseUrl}/employee/detail/`+id)
         .then(result => {
             setEmployee(result.data[0])
         })
         .catch(err => console.log(err))
     }, [])
     const handleLogout = () => {
-        axios.get('http://localhost:3000/employee/logout')
+        axios.get(`${baseUrl}/employee/logout`)
         .then(result => {
           if(result.data.Status) {
             localStorage.removeItem("valid")
@@ -29,7 +29,7 @@ const EmployeeDetail = () => {
             <h4>Emoployee Management System</h4>
         </div>
         <div className='d-flex justify-content-center flex-column align-items-center mt-3'>
-            <img src={`http://localhost:3000/Images/`+employee.image} className='emp_det_image'/>
+            <img src={`${baseUrl}/Images/`+employee.image} className='emp_det_image'/>
             <div className='d-flex align-items-center flex-column mt-5'>
                 <h3>Name: {employee.name}</h3>
                 <h3>Email: {employee.email}</h3>

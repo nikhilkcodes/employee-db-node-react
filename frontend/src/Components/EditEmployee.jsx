@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-
+import baseUrl from '../baseUrl'
 const EditEmployee = () => {
     const {id} = useParams()
     const [employee, setEmployee] = useState({
@@ -15,7 +15,7 @@ const EditEmployee = () => {
       const navigate = useNavigate()
 
       useEffect(()=> {
-        axios.get('http://localhost:3000/auth/category')
+        axios.get(`${baseUrl}/auth/category`)
         .then(result => {
             if(result.data.Status) {
                 setCategory(result.data.Result);
@@ -24,7 +24,7 @@ const EditEmployee = () => {
             }
         }).catch(err => console.log(err))
 
-        axios.get('http://localhost:3000/auth/employee/'+id)
+        axios.get(`${baseUrl}/auth/employee/`+id)
         .then(result => {
             setEmployee({
                 ...employee,
@@ -39,7 +39,7 @@ const EditEmployee = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.put('http://localhost:3000/auth/edit_employee/'+id, employee)
+        axios.put(`${baseUrl}/auth/edit_employee/`+id, employee)
         .then(result => {
             if(result.data.Status) {
                 navigate('/dashboard/employee')
@@ -48,7 +48,7 @@ const EditEmployee = () => {
             }
         }).catch(err => console.log(err))
     }
-    
+
   return (
     <div className="d-flex justify-content-center align-items-center mt-3">
       <div className="p-3 rounded w-50 border">
@@ -128,7 +128,7 @@ const EditEmployee = () => {
               })}
             </select>
           </div>
-          
+
           <div className="col-12">
             <button type="submit" className="btn btn-primary w-100">
               Edit Employee
