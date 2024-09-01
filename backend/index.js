@@ -5,7 +5,11 @@ import { adminRouter } from "./Routes/AdminRoute.js";
 import { EmployeeRouter } from "./Routes/EmployeeRoute.js";
 import Jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
+import { fileURLToPath } from 'url';
 
+// Create __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const app = express();
 
 app.use(cors({
@@ -44,10 +48,17 @@ app.get('/verify', verifyUser, (req, res) => {
 
 
 // Serve static files from the dist folder
-app.use(express.static(__dirname, '../frontend/dist'));
+const distPath = path.join(__dirname, '../frontend/dist');
+
+app.use(express.static(distPath));
 
 app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
+    try {
+        res.sendFile(path.join(distPath, 'index.html'));
+    } catch (error) {
+        console.error('Error sending file:', error);
+        res.status(500).send('Internal Server Error');  //for error handling
+    }
 });
 
 // Start the server
