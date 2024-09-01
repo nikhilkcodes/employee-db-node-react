@@ -48,7 +48,7 @@ app.get('/verify', verifyUser, (req, res) => {
 
 
 // Serve static files from the dist folder
-const distPath = path.join(__dirname, '../frontend/dist');
+const distPath = path.join(__dirname, './frontend/dist');
 
 app.use(express.static(distPath));
 
