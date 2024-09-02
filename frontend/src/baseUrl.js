@@ -1,3 +1,3 @@
-const baseUrl = "https://employee-mgmt-db-gzdvcxevbqb7cwc7.centralindia-01.azurewebsites.net";
+const baseUrl = "https://new-emp-db-fqc2b8gsf6a5hkhm.centralindia-01.azurewebsites.net";
 
 export default baseUrl;
